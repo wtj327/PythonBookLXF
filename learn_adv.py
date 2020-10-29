@@ -186,25 +186,121 @@ def test_code():
     print()
 
     # 生成器 generator
+    # 要创建一个generator，有很多种方法。第一种方法很简单，只要把一个列表生成式的[]改成()，就创建了一个generator
+    my_list = [v ** 2 for v in range(1,11)]
+    print(my_list)
+    # generator, which stores 'the algorithm'
+    g = (v ** 2 for v in range(1,11))
+    print(next(g))
+    # generator也是可迭代对象
+    for v in g:
+        print(v)
+    print()
 
+    # Create a generator
+    def fib(max):
+        n, a, b = 0, 0, 1
+        while n < max:
+            yield b
+            a, b = b, a + b
+            n = n + 1
+        return 'done'
+    # Call the generator
+    g = fib(5)
+    print(next(g))
+    print(next(g))
+    print()
+    # 把函数改成generator后，我们基本上从来不会用next()来获取下一个返回值，而是直接使用for循环来迭代
+    for v in g:
+        print(v)
+    print()
+    # Use a generator to build Pascal's Triangle
+    def triangles():
+        row = [1]
+        while True:
+            yield row
+            row_temp = [0] + row
+            row = row + [0]
+            row_new = []
+            for x, y in zip(row_temp, row):
+                row_new.append(x+y)
+            row = row_new
+    # Call
+    f = triangles()
+    print(next(f))
+    print(next(f))
+    print(next(f))
+    print(next(f))
+    print(next(f))
+    # Test
+    n = 0
+    results = []
+    for t in triangles():
+        results.append(t)
+        n = n + 1
+        if n == 10:
+            break
 
+    for t in results:
+        print(t)
 
+    if results == [
+        [1],
+        [1, 1],
+        [1, 2, 1],
+        [1, 3, 3, 1],
+        [1, 4, 6, 4, 1],
+        [1, 5, 10, 10, 5, 1],
+        [1, 6, 15, 20, 15, 6, 1],
+        [1, 7, 21, 35, 35, 21, 7, 1],
+        [1, 8, 28, 56, 70, 56, 28, 8, 1],
+        [1, 9, 36, 84, 126, 126, 84, 36, 9, 1]
+    ]:
+        print('测试通过!')
+    else:
+        print('测试失败!')
+    print()
 
+    # Summary: 可以直接作用于for循环的数据类型有以下几种：
+    # 一类是集合数据类型，如list、tuple、dict、set、str等；
+    # 一类是generator，包括生成器和带yield的generator function
+    # 这些可以直接作用于for循环的对象统称为可迭代对象：Iterable
+    # 可以使用isinstance()判断一个对象是否是Iterable对象
+    from collections.abc import Iterable
+    print(isinstance([1,2,3], Iterable))
+    print(isinstance((v for v in range(1,10)), Iterable))
+    print()
 
+    # 迭代器，Iterator: 可以被next()函数调用并不断返回下一个值的对象称为迭代器：Iterator
+    # 可以使用isinstance()判断一个对象是否是Iterator对象
+    from collections.abc import Iterator
+    print(isinstance([1,2,3], Iterator))
+    print(isinstance((v for v in range(1,10)), Iterator))
+    print()
 
+    # 生成器都是Iterator对象，但list、dict、str虽然是Iterable，却不是Iterator。
+    # 把list、dict、str等Iterable变成Iterator可以使用iter()函数
+    print(isinstance([1,2,3], Iterator))
+    print(isinstance(iter([1,2,3]), Iterator))
+    f = iter([1,2,3])
+    print(next(f))
+    print(next(f))
+    print(next(f))
+    print()
+    # Convert iterator to list
+    f = iter([1, 2, 3, 4, 5])
+    print(f)
+    print(next(f))
+    print(list(f))
+    print()
 
-
-
-
-
-
-
-
-
-
-
-
-
+    ''' 你可能会问，为什么list、dict、str等数据类型不是Iterator？
+    这是因为Python的Iterator对象表示的是一个数据流，Iterator对象可以被next()函数调用并不断返回下一个数据，
+    直到没有数据时抛出StopIteration错误。
+    可以把这个数据流看做是一个有序序列，但我们却不能提前知道序列的长度，只能不断通过next()函数实现按需计算下一个数据，
+    所以Iterator的计算是惰性的，只有在需要返回下一个数据时它才会计算。
+    Iterator甚至可以表示一个无限大的数据流，例如全体自然数。而使用list是永远不可能存储全体自然数的。
+    REF: https: // www.liaoxuefeng.com / wiki / 1016959663602400 / 1017323698112640 '''
 
 
 
