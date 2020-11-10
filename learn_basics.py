@@ -223,4 +223,40 @@ def test_code():
     print('b = %s' % b)
     print()
 
+    # boolean operations
+    # https://docs.python.org/3.8/reference/expressions.html#boolean-operations
+    # The operator not yields True if its argument is false, False otherwise.
+    # The expression x and y first evaluates x; if x is false, its value is returned;
+    # otherwise, y is evaluated and the resulting value is returned.
+    # The expression x or y first evaluates x; if x is true, its value is returned;
+    # otherwise, y is evaluated and the resulting value is returned.
+    # Note that neither and nor or restrict the value and type they return to False and True,
+    # but rather return the last evaluated argument. This is sometimes useful,
+    # e.g., if s is a string that should be replaced by a default value if it is empty,
+    # the expression s or 'foo' yields the desired value. Because not has to create a new value,
+    # it returns a boolean value regardless of the type of its argument
+    # (for example, not 'foo' produces False rather than ''.)
+    print(0 and 2)
+    print(0 and None)
+    print(1 and 0)
+    print(1 and 2)
+    print(0 or 2)
+    print(0 or None)
+    print(1 or 0)
+    print(1 or 2)
+    # More examples
+    # or
+    print(2 or 3, 3 or 2)  # Return left operand if true
+    print([] or 3)  # Else, return right operand (true or false)
+    print([] or None)
+    print()
+    # and
+    print(2 and 3, 3 and 2)  # Return left operand if false
+    print([] and 3)  # Else, return right operand (true or false)
+    print([] and None)
+    # input('Pause')
+
+    # 可变对象: list, dict, set
+    # 不可变对象：tuple, string, int, float, bool
+
 
