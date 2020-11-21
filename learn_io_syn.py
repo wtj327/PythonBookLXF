@@ -112,6 +112,47 @@ def test_code():
         dict_2 = pickle.load(f)
     print(dict_2)
     print()
+
+    # test pickling a instance
+    class Student(object):
+        def __init__(self, name, sex):
+            self._name = name
+            self._sex = sex
+
+        @property
+        def name(self):
+            return self._name
+
+        @name.setter
+        def name(self, value):
+            self._name = value
+
+        @property
+        def sex(self):
+            return self._sex
+
+        @sex.setter
+        def sex(self, value):
+            self._sex = value
+
+        def say_hello(self):
+            print('Hello.')
+
+
+    # create a student
+    student_ = Student('Tom', 'Male')
+    print(student_)
+    print(student_.name)
+    student_.say_hello()
+    # pickling
+    with open('./test_file/test_pickling_inst.txt', 'wb') as f:
+        pickle.dump(student_.__dict__, f)
+    # unickling
+    with open('./test_file/test_pickling_inst.txt', 'rb') as f:
+        student_2 = pickle.load(f)
+    print(student_2)
+    print()
+
     # Pickle的问题和所有其他编程语言特有的序列化问题一样，就是它只能用于Python，
     # 并且可能不同版本的Python彼此都不兼容，因此，只能用Pickle保存那些不重要的数据，不能成功地反序列化也没关系
 
