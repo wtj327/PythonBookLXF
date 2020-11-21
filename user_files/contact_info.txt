@@ -1,0 +1,6 @@
+Room No.: 
+Street No.: 101
+Street Name: Centre Ave
+City: Toronto
+Province: ON
+Postal Code: M2M 2L7

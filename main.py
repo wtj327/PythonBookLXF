@@ -7,6 +7,7 @@ import functional_programming
 import learn_modules
 import learn_oop_basics
 import learn_oop_adv
+import learn_io_syn
 
 learn_basics.test_code()
 learn_functions.test_code()
@@ -15,6 +16,7 @@ functional_programming.test_code()
 learn_modules.test_code()
 learn_oop_basics.test_code()
 learn_oop_adv.test_code()
+learn_io_syn.test_code()
 
 
 
